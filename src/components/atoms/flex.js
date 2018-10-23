@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { alignItems, justifyContent, flexWrap } from 'styled-system';
 
-import { Box } from '../atoms';
+import { Box } from 'src/components/atoms';
 
 export const Flex = styled(Box)`
   display: flex;
@@ -13,5 +13,5 @@ export const Flex = styled(Box)`
 Flex.displayName = 'Flex';
 
 Flex.defaultProps = {
-  px: 0
+  px: 0,
 };

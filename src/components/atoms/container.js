@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { space } from 'styled-system';
 
-import theme from '../../constants/theme';
+import theme from 'src/constants/theme';
 
 export const Container = styled.div`
   padding-left: ${theme.space[3] / 2}px;

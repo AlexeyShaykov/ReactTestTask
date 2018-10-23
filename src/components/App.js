@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
 
-import theme from '../constants/theme';
-import store from '../store';
+import theme from 'src/constants/theme';
+import store from 'src/store';
 import './App.css';
+import AudioList from './AudioList';
 
-import { Container, Flex, Box } from './atoms';
+import { Container } from './atoms';
 
 class App extends Component {
   render() {
@@ -15,10 +16,7 @@ class App extends Component {
         <ThemeProvider theme={theme}>
           <div className="App">
             <Container>
-              <Flex>
-                <Box width="50%">the first</Box>
-                <Box width="50%">the second</Box>
-              </Flex>
+              <AudioList />
             </Container>
           </div>
         </ThemeProvider>
@@ -26,5 +24,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;
