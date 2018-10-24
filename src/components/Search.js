@@ -19,15 +19,15 @@ export default class Search extends Component {
   handleSearchThrottled = throttle(500, e => this.handleClick(e));
   handleClick = value => {
     const result = this.search.search(value);
-    console.log('caught ', value);
-    console.log('caught ', result);
+    this.props.applayFilter(result);
   };
 
   componentDidMount() {}
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    if (this.search) return;
     this.search = new JsSearch.Search('id');
     this.search.addIndex('trackName');
+    this.search.addIndex('artistName');
     this.search.addDocuments(nextProps.playlist);
   }
 

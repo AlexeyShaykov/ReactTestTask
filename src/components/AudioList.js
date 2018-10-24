@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
+import enhanceWithClickOutside from 'react-click-outside';
 
 import { Flex, Box } from './atoms';
 
@@ -9,6 +10,7 @@ const PlaylistContainer = styled(Box)`
 `;
 const Song = styled(Box)`
   border-bottom: 1px solid #ccc;
+  cursor: pointer;
   :last-child {
     border-bottom: none;
   }
@@ -28,26 +30,20 @@ const SongWrap = styled(Flex)`
   }
 `;
 
-export default class AudioList extends Component {
+class AudioList extends Component {
   handleClick = id => this.props.toggleSong(id);
+  handleClickOutside = () => console.log('caught click ');
 
   render() {
-    const { loading, playlist, activeSong } = this.props;
-    if (loading && playlist.length === 0) {
-      return <p>Loading…</p>;
-    }
+    const { playlist, activeSong } = this.props;
+    console.log('from AudioList ', playlist);
     return (
       <PlaylistContainer px={0} py={0} mt={2}>
-        {playlist.map(item => (
-          <Song
-            key={item.id}
-            py="2px"
-            px={2}
-            onClick={this.handleClick(item.id)}
-          >
+        {playlist.map((item, index) => (
+          <Song key={index} py="2px" px={2} onClick={this.handleClick(item.id)}>
             <SongWrap active={item.id === activeSong}>
               <Box width="50%" textAlign="left">
-                {item.trackName}
+                {item.artistName} - {item.trackName}
               </Box>
               <Box width="50%" textAlign="right">
                 {item.time}
@@ -59,3 +55,5 @@ export default class AudioList extends Component {
     );
   }
 }
+
+export default enhanceWithClickOutside(AudioList);

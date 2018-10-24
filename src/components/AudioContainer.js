@@ -11,32 +11,37 @@ class AudioContainer extends Component {
   static propTypes = {
     //from connect
     playlist: PropTypes.array,
-    loading: PropTypes.bool,
+    loading: PropTypes.bool
   };
   state = {
     activeSong: -1,
-    fPlaylist: [],
+    filteredPlaylist: []
   };
 
   componentDidMount() {
     this.props.fetchData();
   }
   changeActiveSong = activeSong => ev => this.setState({ activeSong });
+  applayFilter = value =>
+    this.setState({ filteredPlaylist: value, activeSong: -1 });
 
   render() {
-    const { loading, playlist, activeSong } = this.props;
-    const { fPlaylist } = this.state;
+    const { loading, playlist } = this.props;
+    const { filteredPlaylist, activeSong } = this.state;
     if (loading && playlist.length === 0) {
       return <p>Loading…</p>;
     }
     return (
       <>
-        <Search playlist={playlist} />
+        <Search playlist={playlist} applayFilter={this.applayFilter} />
         <AudioList
           playlist={
-            fPlaylist.length === 0
+            filteredPlaylist.length === 0
               ? playlist
-              : fPlaylist.map(id => playlist.filter(item => item.id === id))
+              : filteredPlaylist.map(
+                  filterItem =>
+                    playlist.filter(item => item.id === filterItem.id)[0]
+                )
           }
           activeSong={activeSong}
           toggleSong={this.changeActiveSong}
@@ -49,17 +54,17 @@ class AudioContainer extends Component {
 const mapStateToProps = state => {
   return {
     loading: state.loading,
-    playlist: state.playlist,
+    playlist: state.playlist
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchData: () => dispatch(loadAudioList()),
+    fetchData: () => dispatch(loadAudioList())
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(AudioContainer);
