@@ -1,51 +1,61 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import styled, { css } from 'styled-components';
 
-import { loadAudioList } from 'src/AC';
 import { Flex, Box } from './atoms';
 
-class AudioList extends Component {
-  componentDidMount() {
-    console.log('start App loading');
-    this.props.fetchData();
+const PlaylistContainer = styled(Box)`
+  border: 1px solid #ccc;
+  border-radius: 20px;
+`;
+const Song = styled(Box)`
+  border-bottom: 1px solid #ccc;
+  :last-child {
+    border-bottom: none;
   }
+`;
+
+const SongWrap = styled(Flex)`
+  border-radius: 20px;
+  padding: 1px 24px 1px 8px;
+  ${props =>
+    props.active &&
+    css`
+      background-color: #ccc;
+    `};
+  :hover {
+    cursor: pointer;
+    background-color: #ccc;
+  }
+`;
+
+export default class AudioList extends Component {
+  handleClick = id => this.props.toggleSong(id);
 
   render() {
-    const { loading, playlist } = this.props;
+    const { loading, playlist, activeSong } = this.props;
     if (loading && playlist.length === 0) {
       return <p>Loading…</p>;
     }
     return (
-      <div>
+      <PlaylistContainer px={0} py={0} mt={2}>
         {playlist.map(item => (
-          <Flex key={item.id}>
-            <Box width="50%" py={2} textAlign="left">
-              {item.trackName}
-            </Box>
-            <Box width="50%" py={2} textAlign="right">
-              {item.time}
-            </Box>
-          </Flex>
+          <Song
+            key={item.id}
+            py="2px"
+            px={2}
+            onClick={this.handleClick(item.id)}
+          >
+            <SongWrap active={item.id === activeSong}>
+              <Box width="50%" textAlign="left">
+                {item.trackName}
+              </Box>
+              <Box width="50%" textAlign="right">
+                {item.time}
+              </Box>
+            </SongWrap>
+          </Song>
         ))}
-      </div>
+      </PlaylistContainer>
     );
   }
 }
-
-const mapStateToProps = state => {
-  return {
-    loading: state.loading,
-    playlist: state.playlist,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchData: () => dispatch(loadAudioList()),
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AudioList);

@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import theme from 'src/constants/theme';
 import store from 'src/store';
 import './App.css';
-import AudioList from './AudioList';
+import AudioContainer from './AudioContainer';
 
 import { Container } from './atoms';
 
@@ -16,7 +16,7 @@ class App extends Component {
         <ThemeProvider theme={theme}>
           <div className="App">
             <Container>
-              <AudioList />
+              <AudioContainer />
             </Container>
           </div>
         </ThemeProvider>
