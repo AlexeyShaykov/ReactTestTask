@@ -6,16 +6,17 @@ import { loadAudioList } from 'src/AC';
 
 import Search from './Search';
 import AudioList from './AudioList';
+import AudioPleer from './AudioPleer';
 
 class AudioContainer extends Component {
   static propTypes = {
     //from connect
     playlist: PropTypes.array,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
   };
   state = {
     activeSong: -1,
-    filteredPlaylist: []
+    filteredPlaylist: [],
   };
 
   componentDidMount() {
@@ -28,11 +29,12 @@ class AudioContainer extends Component {
   render() {
     const { loading, playlist } = this.props;
     const { filteredPlaylist, activeSong } = this.state;
-    if (loading && playlist.length === 0) {
+    if (loading || playlist.length === 0) {
       return <p>Loading…</p>;
     }
     return (
       <>
+        <AudioPleer src={playlist.filter(item => item.id === activeSong)[0]} />
         <Search playlist={playlist} applayFilter={this.applayFilter} />
         <AudioList
           playlist={
@@ -40,7 +42,7 @@ class AudioContainer extends Component {
               ? playlist
               : filteredPlaylist.map(
                   filterItem =>
-                    playlist.filter(item => item.id === filterItem.id)[0]
+                    playlist.filter(item => item.id === filterItem.id)[0],
                 )
           }
           activeSong={activeSong}
@@ -54,17 +56,17 @@ class AudioContainer extends Component {
 const mapStateToProps = state => {
   return {
     loading: state.loading,
-    playlist: state.playlist
+    playlist: state.playlist,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchData: () => dispatch(loadAudioList())
+    fetchData: () => dispatch(loadAudioList()),
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(AudioContainer);

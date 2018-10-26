@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { throttle } from 'throttle-debounce';
+import debounce from 'lodash.debounce';
 import * as JsSearch from 'js-search';
 
 const SearchInput = styled.input`
@@ -16,25 +16,27 @@ const SearchInput = styled.input`
 
 export default class Search extends Component {
   search = null;
-  handleSearchThrottled = throttle(500, e => this.handleClick(e));
-  handleClick = value => {
+  startSearch = debounce(value => {
     const result = this.search.search(value);
     this.props.applayFilter(result);
+  }, 300);
+
+  handleClick = e => {
+    const { value } = e.target;
+    if (!value) return;
+    this.startSearch(value);
   };
 
-  componentDidMount() {}
-  componentWillReceiveProps(nextProps) {
-    if (this.search) return;
+  componentDidMount() {
     this.search = new JsSearch.Search('id');
     this.search.addIndex('trackName');
     this.search.addIndex('artistName');
-    this.search.addDocuments(nextProps.playlist);
+    this.search.addDocuments(this.props.playlist);
   }
-
   render() {
     return (
       <SearchInput
-        onChange={e => this.handleSearchThrottled(e.target.value)}
+        onChange={this.handleClick}
         placeholder="Search for actists or tracks"
       />
     );

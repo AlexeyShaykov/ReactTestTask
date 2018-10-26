@@ -36,7 +36,6 @@ class AudioList extends Component {
 
   render() {
     const { playlist, activeSong } = this.props;
-    console.log('from AudioList ', playlist);
     return (
       <PlaylistContainer px={0} py={0} mt={2}>
         {playlist.map((item, index) => (
