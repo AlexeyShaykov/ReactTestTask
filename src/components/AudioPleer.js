@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import ReactDOM from 'react-dom';
 
+import { Flex } from 'src/components/atoms';
+
+import Icon from 'src/components/atoms/Icon';
+
 const SongLoading = styled.p`
   position: absolute;
   margin: unset;
@@ -33,13 +37,21 @@ export default class AudioPleer extends Component {
     const { src } = this.props;
     const { songLoading } = this.state;
     return (
-      <>
+      <Flex alignItems="center">
+        <Icon name="backward" />
+        <Icon name="play" />
+        <Icon name="forward" />
+        <Icon name="volume" />
+        <Icon name="cross" />
+        <Icon name="stop" />
+        <Icon name="pause" />
         <SongLoading loading={songLoading}>Loading…</SongLoading>
+        <progress id="seekObj" value="0.5" max="1" />
         <audio controls="controls" id="player" ref="player">
           <source src="" />
           <p> Your browser doesn't support the audio tag </p>
         </audio>
-      </>
+      </Flex>
     );
   }
 }

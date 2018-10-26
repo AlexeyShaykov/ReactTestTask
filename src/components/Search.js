@@ -23,7 +23,10 @@ export default class Search extends Component {
 
   handleClick = e => {
     const { value } = e.target;
-    if (!value) return;
+    if (!value) {
+      this.props.applayFilter([]);
+      return;
+    }
     this.startSearch(value);
   };
 

@@ -10,6 +10,5 @@ export const Container = styled.div`
   margin-left: auto;
   margin-right: auto;
   max-width: ${theme.containerWidth};
-  width: 100%;
   position: relative;
 `;
