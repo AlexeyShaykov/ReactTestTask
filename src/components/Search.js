@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import debounce from 'lodash.debounce';
 import * as JsSearch from 'js-search';
+import PropTypes from 'prop-types';
 
 const SearchInput = styled.input`
   width: 100%;
@@ -16,6 +17,9 @@ const SearchInput = styled.input`
 
 export default class Search extends Component {
   search = null;
+  static propTypes = {
+    applayFilter: PropTypes.func,
+  };
   startSearch = debounce(value => {
     const result = this.search.search(value);
     this.props.applayFilter(result);

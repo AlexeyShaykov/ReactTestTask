@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 
 import { Flex, Box } from './atoms';
 
@@ -30,6 +31,10 @@ const SongWrap = styled(Flex)`
 `;
 
 class AudioList extends Component {
+  static propTypes = {
+    playlist: PropTypes.array,
+    activeSong: PropTypes.number,
+  };
   handleClick = id => this.props.toggleSong(id);
   render() {
     const { playlist, activeSong } = this.props;

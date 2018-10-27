@@ -4,8 +4,9 @@ import ReactDOM from 'react-dom';
 
 import { Flex, Box } from 'src/components/atoms';
 import AudioControl from './AudioControl';
+import AudioVolume from './AudioVolume';
 
-const SongLoading = styled.p`
+const SongLoadingNot = styled.p`
   position: absolute;
   margin: unset;
   left: 50%;
@@ -13,6 +14,7 @@ const SongLoading = styled.p`
   top: 50%;
   opacity: ${props => (props.loading ? '1' : '0')};
   transition: opacity 300ms;
+  pointer-events: none;
 `;
 
 const TimeBox = styled(Flex)`
@@ -28,11 +30,10 @@ export default class AudioPleer extends Component {
     songProgress: 0,
     currentTime: '',
     duration: '',
-    isMousedownOnVolume: false,
     intervalId: 0,
   };
   interval = null;
-  handleSongLoaded = event => {
+  handleSongLoaded = () => {
     if (!this.state.songLoading) return;
     const duration = this.refs.player.duration;
     this.setState({
@@ -76,14 +77,6 @@ export default class AudioPleer extends Component {
     });
     this.refs.player.currentTime = time;
   };
-  volumeChange = evt => {
-    if (this.state.isMousedownOnVolume || evt.type === 'click') {
-      const percent = evt.offsetX / evt.target.offsetWidth;
-      const volume = Math.floor(percent * 10) / 10;
-      this.refs.player.volume = volume;
-      evt.target.value = volume;
-    }
-  };
   calculateTimeValue = time => {
     let min = Math.floor(time / 60);
     min = min >= 10 ? min : '0' + min;
@@ -99,20 +92,6 @@ export default class AudioPleer extends Component {
     ReactDOM.findDOMNode(this.refs.progress).addEventListener(
       'click',
       this.seek,
-    );
-    ReactDOM.findDOMNode(this.refs.volume).addEventListener('mousedown', () =>
-      this.setState({ isMousedownOnVolume: true }),
-    );
-    ReactDOM.findDOMNode(this.refs.volume).addEventListener('mouseup', () =>
-      this.setState({ isMousedownOnVolume: false }),
-    );
-    ReactDOM.findDOMNode(this.refs.volume).addEventListener(
-      'mousemove',
-      this.volumeChange,
-    );
-    ReactDOM.findDOMNode(this.refs.volume).addEventListener(
-      'click',
-      this.volumeChange,
     );
     this.refs.player.volume = 0.5;
   }
@@ -163,12 +142,14 @@ export default class AudioPleer extends Component {
           </TimeBox>
           <Box width="100%">
             <progress value={songProgress} min="0" max="1" ref="progress" />
-            <SongLoading loading={songLoading}>Loading…</SongLoading>
+            <SongLoadingNot loading={songLoading}>Loading…</SongLoadingNot>
             <audio controls="controls" ref="player" />
           </Box>
         </Flex>
         <Box width="20%" ml={2}>
-          <progress ref="volume" value="0.5" min="0" max="1" />
+          <AudioVolume
+            hanldeVolumeChange={value => (this.refs.player.volume = value)}
+          />
         </Box>
       </Flex>
     );
