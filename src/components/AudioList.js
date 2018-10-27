@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
-import enhanceWithClickOutside from 'react-click-outside';
 
 import { Flex, Box } from './atoms';
 

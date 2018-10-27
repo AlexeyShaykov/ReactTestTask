@@ -33,3 +33,7 @@ progress[value]::-moz-progress-bar {
 progress::-webkit-progress-value {
   background-color: #ccc;
 }
+
+audio {
+  display: none;
+}
