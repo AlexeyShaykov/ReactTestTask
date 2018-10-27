@@ -13,4 +13,4 @@ yarn run build
 
 ## Ссылка на макет
 
-react-test-job.netlify.com
+https://react-test-job.netlify.com
