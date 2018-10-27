@@ -15,7 +15,7 @@ class App extends Component {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <div className="App">
-            <Container>
+            <Container py={5}>
               <AudioContainer />
             </Container>
           </div>

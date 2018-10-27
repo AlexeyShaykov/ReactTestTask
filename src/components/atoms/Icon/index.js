@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Box } from 'src/components/atoms';
 
 export const icons = {
   play: require('./icons/Play').default,
@@ -13,16 +14,16 @@ export const icons = {
   stop: require('./icons/Stop').default,
 };
 
-const IconRoot = styled.div`
-  width: 35px;
-  height: 35px;
+const IconRoot = styled(Box)`
+  width: 25px;
+  height: 25px;
   cursor: pointer;
 `;
-const Icon = ({ name }) => {
+const Icon = ({ name, mx }) => {
   const Component = icons[name];
 
   return name ? (
-    <IconRoot>
+    <IconRoot mx={mx}>
       <Component />
     </IconRoot>
   ) : null;

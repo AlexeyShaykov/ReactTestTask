@@ -23,8 +23,7 @@ class AudioContainer extends Component {
     this.props.fetchData();
   }
   changeActiveSong = activeSong => ev => this.setState({ activeSong });
-  applayFilter = value =>
-    this.setState({ filteredPlaylist: value, activeSong: -1 });
+  applayFilter = value => this.setState({ filteredPlaylist: value });
 
   render() {
     const { loading, playlist } = this.props;

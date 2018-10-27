@@ -19,7 +19,7 @@ export default class Search extends Component {
   startSearch = debounce(value => {
     const result = this.search.search(value);
     this.props.applayFilter(result);
-  }, 300);
+  }, 100);
 
   handleClick = e => {
     const { value } = e.target;

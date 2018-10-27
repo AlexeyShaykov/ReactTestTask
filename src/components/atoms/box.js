@@ -5,4 +5,5 @@ export const Box = styled.div`
   ${space};
   ${textAlign};
   ${width};
+  position: relative;
 `;

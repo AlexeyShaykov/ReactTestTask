@@ -32,12 +32,10 @@ const SongWrap = styled(Flex)`
 
 class AudioList extends Component {
   handleClick = id => this.props.toggleSong(id);
-  handleClickOutside = () => console.log('caught click ');
-
   render() {
     const { playlist, activeSong } = this.props;
     return (
-      <PlaylistContainer px={0} py={0} mt={2}>
+      <PlaylistContainer px={0} py={0} mt={5}>
         {playlist.map((item, index) => (
           <Song key={index} py="2px" px={2} onClick={this.handleClick(item.id)}>
             <SongWrap active={item.id === activeSong}>
@@ -55,4 +53,4 @@ class AudioList extends Component {
   }
 }
 
-export default enhanceWithClickOutside(AudioList);
+export default AudioList;
