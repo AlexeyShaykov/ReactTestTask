@@ -33,7 +33,7 @@ const AudioList = ({ playlist, activeSong, toggleSong }) => {
   return (
     <PlaylistContainer px={0} py={0} mt={5}>
       {playlist.map((item, index) => (
-        <Song key={index} py="2px" px={2} onClick={toggleSong(item.id)}>
+        <Song key={index} py="2px" px={2} onClick={() => toggleSong(item.id)}>
           <SongWrap active={item.id === activeSong}>
             <Box width="50%" textAlign="left">
               {item.artistName} - {item.trackName}

@@ -24,7 +24,22 @@ class AudioContainer extends Component {
   componentDidMount() {
     this.props.fetchData();
   }
-  changeActiveSong = activeSong => ev => this.setState({ activeSong });
+  changeActiveSong = value => {
+    if (Number.isInteger(value)) {
+      this.setState({ activeSong: value });
+      return;
+    }
+    let activeSong = this.state.activeSong;
+    if (!activeSong) return;
+    if (value === 'forward') {
+      if (activeSong === this.props.playlist.length) return;
+      this.setState({ activeSong: ++activeSong });
+    }
+    if (value === 'backward') {
+      if (activeSong === 1) return;
+      this.setState({ activeSong: --activeSong });
+    }
+  };
   applyFilter = value => this.setState({ filteredPlaylist: value });
 
   render() {
@@ -35,7 +50,10 @@ class AudioContainer extends Component {
     }
     return (
       <>
-        <AudioPlayer src={playlist.filter(item => item.id === activeSong)[0]} />
+        <AudioPlayer
+          src={playlist.filter(item => item.id === activeSong)[0]}
+          toggleSong={this.changeActiveSong}
+        />
         <Search playlist={playlist} applyFilter={this.applyFilter} />
         <AudioList
           playlist={

@@ -40,6 +40,7 @@ export default class AudioPleer extends Component {
       currentTime: '00:00'
     });
     this.setState({ songLoading: false });
+    this.handleControlClick('play');
   };
   handleControlClick = name => {
     if (name === 'play') {
@@ -116,13 +117,11 @@ export default class AudioPleer extends Component {
       currentTime,
       duration
     } = this.state;
+    const { toggleSong } = this.props;
     return (
       <Flex alignItems="center" mb={5}>
         <Flex width="10%">
-          <AudioControl
-            name="backward"
-            hanldeControlClick={this.handleControlClick}
-          />
+          <AudioControl name="backward" hanldeControlClick={toggleSong} />
           <AudioControl
             name="play"
             isPlaying={songPlaying}
@@ -130,10 +129,7 @@ export default class AudioPleer extends Component {
             mx={2}
             hanldeControlClick={this.handleControlClick}
           />
-          <AudioControl
-            name="forward"
-            hanldeControlClick={this.handleControlClick}
-          />
+          <AudioControl name="forward" hanldeControlClick={toggleSong} />
         </Flex>
         <Flex width="70%" alignItems="center">
           <TimeBox duration={duration} mx={2}>
