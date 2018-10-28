@@ -21,9 +21,6 @@ class AudioContainer extends Component {
     filteredPlaylist: []
   };
 
-  componentDidMount() {
-    this.props.fetchData();
-  }
   changeActiveSong = value => {
     if (Number.isInteger(value)) {
       this.setState({ activeSong: value });
@@ -41,6 +38,10 @@ class AudioContainer extends Component {
     }
   };
   applyFilter = value => this.setState({ filteredPlaylist: value });
+
+  componentDidMount() {
+    if (this.props.playlist.length === 0) this.props.fetchData();
+  }
 
   render() {
     const { loading, playlist } = this.props;

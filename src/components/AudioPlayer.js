@@ -36,8 +36,7 @@ export default class AudioPleer extends Component {
     if (!this.state.songLoading) return;
     const duration = this.refs.player.duration;
     this.setState({
-      duration: this.calculateTimeValue(duration),
-      currentTime: '00:00'
+      duration: this.calculateTimeValue(duration)
     });
     this.setState({ songLoading: false });
     this.handleControlClick('play');
@@ -46,7 +45,9 @@ export default class AudioPleer extends Component {
     if (name === 'play') {
       if (this.state.songLoading) return;
       if (!this.refs.player.currentSrc) return;
-      this.setState({ songPlaying: true });
+      this.setState({
+        songPlaying: true
+      });
       this.refs.player.play();
       this.intervalId = setInterval(() => {
         const currentTime = this.refs.player.currentTime;
@@ -54,6 +55,11 @@ export default class AudioPleer extends Component {
         const songProgress = currentTime / duration;
         if (currentTime === duration) {
           clearInterval(this.intervalId);
+          this.setState({
+            songPlaying: false,
+            currentTime: '00:00',
+            songProgress: 0
+          });
           return;
         }
         this.setState({
@@ -85,12 +91,13 @@ export default class AudioPleer extends Component {
     sec = sec >= 10 ? sec : '0' + sec;
     return min + ':' + sec;
   };
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.src) return;
-    if (nextProps.src.trackScr === this.refs.player.currentSrc) return;
+  componentDidUpdate() {
+    if (!this.props.src) return;
+    if (this.state.songLoading) return;
+    if (this.props.src.trackScr === this.refs.player.currentSrc) return;
     if (this.intervalId) clearInterval(this.intervalId);
     this.refs.player.pause();
-    this.refs.player.setAttribute('src', nextProps.src.trackScr);
+    this.refs.player.setAttribute('src', this.props.src.trackScr);
     this.setState({
       songLoading: true,
       songPlaying: false,
