@@ -1,67 +1,67 @@
 const data = [
   {
     id: 1,
-    trackName: 'Lovelight',
-    artistName: 'Desert Rain',
-    time: '5:46',
+    trackName: 'Gonna make you happy',
+    artistName: 'Buster Brown',
+    time: '3:33',
     trackScr:
-      'https://ia801505.us.archive.org/30/items/DRb2018-10-21/203Lovelight.mp3'
+      'http://sampleswap.org/samples-ghost/%20MAY%202014%20LATEST%20ADDITIONS/PUBLIC%20DOMAIN%20MUSIC/626[kb]buster-brown-gonna-make-you-happy-1943.mp3.mp3'
   },
   {
     id: 2,
-    trackName: 'For What It`s Worth',
-    artistName: 'Marks Brothers',
-    time: '6:58',
+    trackName: 'Jack can i ride',
+    artistName: 'John Ruby',
+    time: '0:47',
     trackScr:
-      'https://ia801506.us.archive.org/14/items/mb2018-10-20.akg461.matrix.flac24/mb2018-10-20.akg461.matrix.s2-12.mp3'
+      'http://sampleswap.org/samples-ghost/%20MAY%202014%20LATEST%20ADDITIONS/PUBLIC%20DOMAIN%20MUSIC/John%20and%20Ruby%20Lomax%201939%20Southern%20States%20Recordings/138[kb]clapping-song_jack-can-i-ride.mp3.mp3'
   },
   {
     id: 3,
-    trackName: 'Big River',
-    artistName: 'Desert Rain',
-    time: '5:44',
+    trackName: 'Sissy in de barn',
+    artistName: 'John Ruby',
+    time: '0:48',
     trackScr:
-      'https://ia801505.us.archive.org/30/items/DRb2018-10-21/102BigRiver.mp3'
+      'http://sampleswap.org/samples-ghost/%20MAY%202014%20LATEST%20ADDITIONS/PUBLIC%20DOMAIN%20MUSIC/John%20and%20Ruby%20Lomax%201939%20Southern%20States%20Recordings/141[kb]clapping-song_sissy-in-de-barn.mp3.mp3'
   },
   {
     id: 4,
-    trackName: 'Your Face is My Happy Place',
+    trackName: 'Dont you grieve',
     artistName: 'Keller Williams',
-    time: '4:47',
+    time: '0:45',
     trackScr:
-      'https://ia601501.us.archive.org/3/items/KW2018-10-20.SuperluxS502.Flac16/KW2018-10-20-16Bit-s1-t-01.mp3'
+      'http://sampleswap.org/samples-ghost/%20MAY%202014%20LATEST%20ADDITIONS/PUBLIC%20DOMAIN%20MUSIC/John%20and%20Ruby%20Lomax%201939%20Southern%20States%20Recordings/132[kb]dont-you-grieve.mp3.mp3'
   },
   {
     id: 5,
-    trackName: 'Flames From The Sky',
-    artistName: 'Lost Monarchs',
-    time: '8:13',
+    trackName: 'The mocking bird',
+    artistName: 'jr Lomax',
+    time: '0:58',
     trackScr:
-      'https://ia801506.us.archive.org/10/items/LM2018-10-19.IronFistBrewery/02FlamesFromTheSky.mp3'
+      'http://sampleswap.org/samples-ghost/PUBLIC%20DOMAIN%20MUSIC/172[kb]jr-lomax-1939-the-mocking-bird.mp3.mp3'
   },
   {
     id: 6,
-    trackName: 'Judgement Line',
-    artistName: 'Sanctum Sully',
-    time: '7:06',
+    trackName: 'The british king bawdy song',
+    artistName: 'jr Lomax',
+    time: '1:31',
     trackScr:
-      'https://ia801509.us.archive.org/34/items/SS2018-10-18.flac/SanctumSully2018-10-1801.mp3'
+      'http://sampleswap.org/samples-ghost/PUBLIC%20DOMAIN%20MUSIC/268[kb]jr-lomax-1939-the-british-king-bawdy-song.mp3.mp3'
   },
   {
     id: 7,
-    trackName: 'Pretty Girl',
+    trackName: 'The dying cowboy',
     artistName: 'Ween',
-    time: '2:47',
+    time: '1:03',
     trackScr:
-      'https://ia601506.us.archive.org/23/items/Ween2018-10-16.AK40.FLAC16/Ween2018-10-1613.mp3'
+      'http://sampleswap.org/samples-ghost/%20MAY%202014%20LATEST%20ADDITIONS/PUBLIC%20DOMAIN%20MUSIC/John%20and%20Ruby%20Lomax%201939%20Southern%20States%20Recordings/187[kb]the-dying-cowboy.mp3.mp3'
   },
   {
     id: 8,
-    trackName: 'Powder Blue',
+    trackName: 'Buffalo Dance Song omaha indian',
     artistName: 'Ween',
-    time: '3:22',
+    time: '2:06',
     trackScr:
-      'https://ia801506.us.archive.org/23/items/Ween2018-10-16.AK40.FLAC16/Ween2018-10-1616.mp3'
+      'http://sampleswap.org/samples-ghost/PUBLIC%20DOMAIN%20MUSIC/370[kb]Buffalo-Dance-Song-omaha-indian.mp3.mp3'
   }
 ];
 

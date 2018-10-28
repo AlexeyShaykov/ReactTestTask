@@ -1,40 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 import { Box } from 'src/components/atoms';
 
-export const icons = {
+const icons = {
   play: require('./icons/Play').default,
   pause: require('./icons/Pause').default,
   forward: require('./icons/Forward').default,
-  backward: require('./icons/Backward').default,
-  volume: require('./icons/Volume').default,
-  cross: require('./icons/Cross').default,
-  cd: require('./icons/Cd').default,
-  stop: require('./icons/Stop').default,
+  backward: require('./icons/Backward').default
 };
 
-const IconRoot = styled(Box)`
+const IconBox = styled(Box)`
   width: 25px;
   height: 25px;
   cursor: pointer;
 `;
-const Icon = ({ name, mx }) => {
+const Icon = ({ name, mx, hanldeIconClick }) => {
   const Component = icons[name];
-
   return name ? (
-    <IconRoot mx={mx}>
+    <IconBox mx={mx} onClick={() => hanldeIconClick(name)}>
       <Component />
-    </IconRoot>
+    </IconBox>
   ) : null;
 };
 
 Icon.propTypes = {
-  name: PropTypes.string,
+  name: PropTypes.string
 };
 
 Icon.defaultProps = {
-  name: '',
+  name: ''
 };
 
 export default Icon;

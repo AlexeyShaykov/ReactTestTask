@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -29,32 +29,34 @@ const SongWrap = styled(Flex)`
     background-color: #ccc;
   }
 `;
+const AudioList = ({ playlist, activeSong, toggleSong }) => {
+  return (
+    <PlaylistContainer px={0} py={0} mt={5}>
+      {playlist.map((item, index) => (
+        <Song key={index} py="2px" px={2} onClick={toggleSong(item.id)}>
+          <SongWrap active={item.id === activeSong}>
+            <Box width="50%" textAlign="left">
+              {item.artistName} - {item.trackName}
+            </Box>
+            <Box width="50%" textAlign="right">
+              {item.time}
+            </Box>
+          </SongWrap>
+        </Song>
+      ))}
+    </PlaylistContainer>
+  );
+};
 
-class AudioList extends Component {
-  static propTypes = {
-    playlist: PropTypes.array,
-    activeSong: PropTypes.number,
-  };
-  handleClick = id => this.props.toggleSong(id);
-  render() {
-    const { playlist, activeSong } = this.props;
-    return (
-      <PlaylistContainer px={0} py={0} mt={5}>
-        {playlist.map((item, index) => (
-          <Song key={index} py="2px" px={2} onClick={this.handleClick(item.id)}>
-            <SongWrap active={item.id === activeSong}>
-              <Box width="50%" textAlign="left">
-                {item.artistName} - {item.trackName}
-              </Box>
-              <Box width="50%" textAlign="right">
-                {item.time}
-              </Box>
-            </SongWrap>
-          </Song>
-        ))}
-      </PlaylistContainer>
-    );
-  }
-}
+AudioList.propTypes = {
+  playlist: PropTypes.array,
+  activeSong: PropTypes.number,
+  toggleSong: PropTypes.func
+};
+
+AudioList.defaultProps = {
+  playlist: [],
+  activeSong: -1
+};
 
 export default AudioList;

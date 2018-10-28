@@ -18,17 +18,17 @@ const SearchInput = styled.input`
 export default class Search extends Component {
   search = null;
   static propTypes = {
-    applayFilter: PropTypes.func,
+    applyFilter: PropTypes.func
   };
   startSearch = debounce(value => {
     const result = this.search.search(value);
-    this.props.applayFilter(result);
+    this.props.applyFilter(result);
   }, 100);
 
   handleClick = e => {
     const { value } = e.target;
     if (!value) {
-      this.props.applayFilter([]);
+      this.props.applyFilter([]);
       return;
     }
     this.startSearch(value);

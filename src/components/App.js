@@ -14,11 +14,9 @@ class App extends Component {
     return (
       <Provider store={store}>
         <ThemeProvider theme={theme}>
-          <div className="App">
-            <Container py={5}>
-              <AudioContainer />
-            </Container>
-          </div>
+          <Container py={5}>
+            <AudioContainer />
+          </Container>
         </ThemeProvider>
       </Provider>
     );
