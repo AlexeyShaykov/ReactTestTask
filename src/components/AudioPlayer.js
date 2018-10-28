@@ -126,8 +126,13 @@ export default class AudioPleer extends Component {
     } = this.state;
     const { toggleSong } = this.props;
     return (
-      <Flex alignItems="center" mb={5}>
-        <Flex width="10%">
+      <Flex alignItems="center" mb={5} flexWrap={['wrap', 'nowrap']}>
+        <Flex
+          width={['100%', '10%']}
+          order={[1, 0]}
+          justifyContent="center"
+          mt={[2, 0]}
+        >
           <AudioControl name="backward" hanldeControlClick={toggleSong} />
           <AudioControl
             name="play"
