@@ -1,4 +1,4 @@
-![Repo Banner](./.github/repo-banner.png)
+![Repo Banner](./.github/fig.png)
 
 # SweetFigMP3
 
