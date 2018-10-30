@@ -92,12 +92,23 @@ export default class AudioPleer extends Component {
     return min + ':' + sec;
   };
   componentDidUpdate() {
-    if (!this.props.src) return;
+    const { src, tooglePlayMode } = this.props;
+    const { player } = this.refs;
+    if (!src) return;
     if (this.state.songLoading) return;
-    if (this.props.src.trackScr === this.refs.player.currentSrc) return;
+    if (src.trackScr === player.currentSrc && !tooglePlayMode) return;
+    if (src.trackScr === player.currentSrc && tooglePlayMode) {
+      if (this.state.songPlaying) {
+        this.handleControlClick('pause');
+      } else {
+        this.handleControlClick('play');
+      }
+      this.props.returnPlayMode();
+      return;
+    }
     if (this.intervalId) clearInterval(this.intervalId);
-    this.refs.player.pause();
-    this.refs.player.setAttribute('src', this.props.src.trackScr);
+    player.pause();
+    player.setAttribute('src', src.trackScr);
     this.setState({
       songLoading: true,
       songPlaying: false,

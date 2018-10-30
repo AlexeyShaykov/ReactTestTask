@@ -5,17 +5,17 @@
 New lovely mp3 player
 
 ## :hammer: Install
-``` bash
+
+```bash
 # install dependencies
 yarn
 
 # serve with hot reload at localhost:8080
-yarn run dev
+yarn run start
 
 # build for production with minification
 yarn run build
 ```
-
 
 ## :musical_note: Demo
 
