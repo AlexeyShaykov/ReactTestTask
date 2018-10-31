@@ -11,7 +11,7 @@ New lovely mp3 player
 yarn
 
 # serve with hot reload at localhost:8080
-yarn run start
+yarn start
 
 # build for production with minification
 yarn run build

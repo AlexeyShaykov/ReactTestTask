@@ -1,4 +1,4 @@
-import instance from 'src/services/instance';
+import api from 'src/services';
 import { SET_LOADING, SET_AUDIO_LIST } from 'src/constants/mutations-types';
 
 export const loadAudioList = () => {
@@ -7,14 +7,14 @@ export const loadAudioList = () => {
       type: SET_LOADING,
       payload: true,
     });
-    instance.get('playlist').then(data => {
+    api.get('playlist').then(data => {
       dispatch({
         type: SET_LOADING,
         payload: false,
       });
       dispatch({
         type: SET_AUDIO_LIST,
-        payload: data.data.data,
+        payload: data.data,
       });
     });
   };

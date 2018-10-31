@@ -1,4 +1,2 @@
-import playlist from './playlist';
-import loading from './loading';
-export { playlist };
-export { loading };
+export { default as playlist } from './playlist';
+export { default as loading } from './loading';

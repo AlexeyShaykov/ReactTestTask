@@ -23,30 +23,33 @@ class AudioContainer extends Component {
   };
 
   changeActiveSong = value => {
-    if (Number.isInteger(value)) {
-      if (value === this.state.activeSong) {
-        this.setState({ tooglePlayMode: true });
-        return;
-      }
-      this.setState({ activeSong: value });
+    if (value === this.state.activeSong) {
+      this.setState({ tooglePlayMode: true });
       return;
     }
+    this.setState({ activeSong: value });
+    return;
+  };
+  handleNextPrevAction = control => {
     let activeSong = this.state.activeSong;
     if (!activeSong) return;
-    if (value === 'forward') {
-      if (activeSong === this.props.playlist.length) {
-        this.setState({ activeSong: 1 });
-        return;
+    let newActiveSong = 0;
+    const { length } = this.props.playlist;
+    if (control === 'forward') {
+      if (activeSong === length) {
+        newActiveSong = 1;
+      } else {
+        newActiveSong = ++activeSong;
       }
-      this.setState({ activeSong: ++activeSong });
     }
-    if (value === 'backward') {
+    if (control === 'backward') {
       if (activeSong === 1) {
-        this.setState({ activeSong: this.props.playlist.length });
-        return;
+        newActiveSong = length;
+      } else {
+        newActiveSong = ++activeSong;
       }
-      this.setState({ activeSong: --activeSong });
     }
+    this.setState({ activeSong: newActiveSong });
   };
   handleSearchResult = value => this.setState({ filteredPlaylist: value });
   returnPlayMode = () => this.setState({ tooglePlayMode: false });
@@ -61,11 +64,12 @@ class AudioContainer extends Component {
     if (loading || playlist.length === 0) {
       return <Box textAlign="center">Loading…</Box>;
     }
+    const currentTrack = playlist.find(item => item.id === activeSong);
     return (
       <>
         <AudioPlayer
-          src={playlist.filter(item => item.id === activeSong)[0]}
-          toggleSong={this.changeActiveSong}
+          src={currentTrack}
+          toggleSong={this.handleNextPrevAction}
           tooglePlayMode={tooglePlayMode}
           returnPlayMode={this.returnPlayMode}
         />

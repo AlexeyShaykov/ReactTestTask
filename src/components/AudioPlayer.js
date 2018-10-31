@@ -23,10 +23,10 @@ const TimeBox = styled(Flex)`
   opacity: ${props => (props.duration ? '1' : '0')};
 `;
 
-export default class AudioPleer extends Component {
+export default class AudioPlayer extends Component {
   state = {
-    songLoading: false,
-    songPlaying: false,
+    isSongLoading: false,
+    isSongPlaying: false,
     songProgress: 0,
     currentTime: '',
     duration: '',
@@ -35,20 +35,20 @@ export default class AudioPleer extends Component {
   playerRef = React.createRef();
 
   handleSongLoaded = () => {
-    if (!this.state.songLoading) return;
+    if (!this.state.isSongLoading) return;
     const duration = this.player.duration;
     this.setState({
       duration: this.calculateTimeValue(duration),
     });
-    this.setState({ songLoading: false });
+    this.setState({ isSongLoading: false });
     this.handleControlClick('play');
   };
   handleControlClick = name => {
     if (name === 'play') {
-      if (this.state.songLoading) return;
+      if (this.state.isSongLoading) return;
       if (!this.player.currentSrc) return;
       this.setState({
-        songPlaying: true,
+        isSongPlaying: true,
       });
       this.player.play();
       this.intervalId = setInterval(() => {
@@ -58,7 +58,7 @@ export default class AudioPleer extends Component {
         if (currentTime === duration) {
           clearInterval(this.intervalId);
           this.setState({
-            songPlaying: false,
+            isSongPlaying: false,
             currentTime: '00:00',
             songProgress: 0,
           });
@@ -71,7 +71,7 @@ export default class AudioPleer extends Component {
       }, 1000);
     }
     if (name === 'pause') {
-      this.setState({ songPlaying: false });
+      this.setState({ isSongPlaying: false });
       this.player.pause();
       clearInterval(this.intervalId);
     }
@@ -96,10 +96,10 @@ export default class AudioPleer extends Component {
   componentDidUpdate() {
     const { src, tooglePlayMode } = this.props;
     if (!src) return;
-    if (this.state.songLoading) return;
+    if (this.state.isSongLoading) return;
     if (src.trackScr === this.player.currentSrc && !tooglePlayMode) return;
     if (src.trackScr === this.player.currentSrc && tooglePlayMode) {
-      if (this.state.songPlaying) {
+      if (this.state.isSongPlaying) {
         this.handleControlClick('pause');
       } else {
         this.handleControlClick('play');
@@ -111,8 +111,8 @@ export default class AudioPleer extends Component {
     this.player.pause();
     this.player.setAttribute('src', src.trackScr);
     this.setState({
-      songLoading: true,
-      songPlaying: false,
+      isSongLoading: true,
+      isSongPlaying: false,
       currentTime: '00:00',
       songProgress: 0,
     });
@@ -128,8 +128,8 @@ export default class AudioPleer extends Component {
   }
   render() {
     const {
-      songLoading,
-      songPlaying,
+      isSongLoading,
+      isSongPlaying,
       songProgress,
       currentTime,
       duration,
@@ -143,15 +143,13 @@ export default class AudioPleer extends Component {
           justifyContent="center"
           mt={[2, 0]}
         >
-          <AudioControl name="backward" hanldeControlClick={toggleSong} />
+          <AudioControl icon="backward" onClick={toggleSong} />
           <AudioControl
-            name="play"
-            isPlaying={songPlaying}
-            replaceIcon="pause"
+            icon={isSongPlaying ? 'pause' : 'play'}
             mx={2}
-            hanldeControlClick={this.handleControlClick}
+            onClick={this.handleControlClick}
           />
-          <AudioControl name="forward" hanldeControlClick={toggleSong} />
+          <AudioControl icon="forward" onClick={toggleSong} />
         </Flex>
         <Flex width="70%" alignItems="center">
           <TimeBox duration={duration} mx={2}>
@@ -165,7 +163,7 @@ export default class AudioPleer extends Component {
               max="1"
               onClick={e => this.seek(e.nativeEvent)}
             />
-            <SongLoadingNotation loading={songLoading}>
+            <SongLoadingNotation loading={isSongLoading}>
               Loading…
             </SongLoadingNotation>
             <audio controls="controls" ref={this.playerRef} />
@@ -173,7 +171,7 @@ export default class AudioPleer extends Component {
         </Flex>
         <Box width="20%" ml={2}>
           <AudioVolume
-            hanldeVolumeChange={value => (this.player.volume = value)}
+            handleVolumeChange={value => (this.player.volume = value)}
           />
         </Box>
       </Flex>
