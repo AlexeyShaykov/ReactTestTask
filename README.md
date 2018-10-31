@@ -31,6 +31,7 @@ https://react-test-job.netlify.com
 - [node.js >= v8.9.4](https://nodejs.org/en/)
 
 ## Browser support
-Chrome (most recent 2 versions)
-Safari (most recent 2 versions)
-Opera (most recent 2 versions)
+
+* Chrome (most recent 2 versions)
+* Safari (most recent 2 versions)
+* Opera (most recent 2 versions)
