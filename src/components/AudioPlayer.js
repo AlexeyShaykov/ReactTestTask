@@ -29,14 +29,16 @@ export default class AudioPleer extends Component {
     songPlaying: false,
     songProgress: 0,
     currentTime: '',
-    duration: ''
+    duration: '',
   };
   interval = null;
+  playerRef = React.createRef();
+
   handleSongLoaded = () => {
     if (!this.state.songLoading) return;
-    const duration = this.refs.player.duration;
+    const duration = this.player.duration;
     this.setState({
-      duration: this.calculateTimeValue(duration)
+      duration: this.calculateTimeValue(duration),
     });
     this.setState({ songLoading: false });
     this.handleControlClick('play');
@@ -44,45 +46,45 @@ export default class AudioPleer extends Component {
   handleControlClick = name => {
     if (name === 'play') {
       if (this.state.songLoading) return;
-      if (!this.refs.player.currentSrc) return;
+      if (!this.player.currentSrc) return;
       this.setState({
-        songPlaying: true
+        songPlaying: true,
       });
-      this.refs.player.play();
+      this.player.play();
       this.intervalId = setInterval(() => {
-        const currentTime = this.refs.player.currentTime;
-        const duration = this.refs.player.duration;
+        const currentTime = this.player.currentTime;
+        const duration = this.player.duration;
         const songProgress = currentTime / duration;
         if (currentTime === duration) {
           clearInterval(this.intervalId);
           this.setState({
             songPlaying: false,
             currentTime: '00:00',
-            songProgress: 0
+            songProgress: 0,
           });
           return;
         }
         this.setState({
           songProgress,
-          currentTime: this.calculateTimeValue(currentTime)
+          currentTime: this.calculateTimeValue(currentTime),
         });
       }, 1000);
     }
     if (name === 'pause') {
       this.setState({ songPlaying: false });
-      this.refs.player.pause();
+      this.player.pause();
       clearInterval(this.intervalId);
     }
   };
   seek = evt => {
     if (this.state.songProgress === 0) return;
     const songProgress = evt.offsetX / evt.target.offsetWidth;
-    const time = songProgress * this.refs.player.duration;
+    const time = songProgress * this.player.duration;
     this.setState({
       songProgress,
-      currentTime: this.calculateTimeValue(time)
+      currentTime: this.calculateTimeValue(time),
     });
-    this.refs.player.currentTime = time;
+    this.player.currentTime = time;
   };
   calculateTimeValue = time => {
     let min = Math.floor(time / 60);
@@ -93,11 +95,10 @@ export default class AudioPleer extends Component {
   };
   componentDidUpdate() {
     const { src, tooglePlayMode } = this.props;
-    const { player } = this.refs;
     if (!src) return;
     if (this.state.songLoading) return;
-    if (src.trackScr === player.currentSrc && !tooglePlayMode) return;
-    if (src.trackScr === player.currentSrc && tooglePlayMode) {
+    if (src.trackScr === this.player.currentSrc && !tooglePlayMode) return;
+    if (src.trackScr === this.player.currentSrc && tooglePlayMode) {
       if (this.state.songPlaying) {
         this.handleControlClick('pause');
       } else {
@@ -107,24 +108,22 @@ export default class AudioPleer extends Component {
       return;
     }
     if (this.intervalId) clearInterval(this.intervalId);
-    player.pause();
-    player.setAttribute('src', src.trackScr);
+    this.player.pause();
+    this.player.setAttribute('src', src.trackScr);
     this.setState({
       songLoading: true,
       songPlaying: false,
       currentTime: '00:00',
-      songProgress: 0
+      songProgress: 0,
     });
   }
   componentDidMount() {
-    this.refs.player.addEventListener('canplaythrough', this.handleSongLoaded);
-    this.refs.player.volume = 0.5;
+    this.player = this.playerRef.current;
+    this.player.addEventListener('canplaythrough', this.handleSongLoaded);
+    this.player.volume = 0.5;
   }
   componentWillUnmount() {
-    this.refs.player.removeEventListener(
-      'canplaythrough',
-      this.handleSongLoaded
-    );
+    this.player.removeEventListener('canplaythrough', this.handleSongLoaded);
     clearInterval(this.intervalId);
   }
   render() {
@@ -133,7 +132,7 @@ export default class AudioPleer extends Component {
       songPlaying,
       songProgress,
       currentTime,
-      duration
+      duration,
     } = this.state;
     const { toggleSong } = this.props;
     return (
@@ -169,12 +168,12 @@ export default class AudioPleer extends Component {
             <SongLoadingNotation loading={songLoading}>
               Loading…
             </SongLoadingNotation>
-            <audio controls="controls" ref="player" />
+            <audio controls="controls" ref={this.playerRef} />
           </Box>
         </Flex>
         <Box width="20%" ml={2}>
           <AudioVolume
-            hanldeVolumeChange={value => (this.refs.player.volume = value)}
+            hanldeVolumeChange={value => (this.player.volume = value)}
           />
         </Box>
       </Flex>

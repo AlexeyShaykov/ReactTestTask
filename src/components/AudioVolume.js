@@ -5,10 +5,10 @@ const enhanceWithClickOutside = require('react-click-outside');
 
 class AudioVolume extends Component {
   state = {
-    isMousedownOnVolume: false
+    isMousedownOnVolume: false,
   };
   static propTypes = {
-    hanldeVolumeChange: PropTypes.func
+    hanldeVolumeChange: PropTypes.func,
   };
   handleClickOutside() {
     this.setState({ isMousedownOnVolume: false });
