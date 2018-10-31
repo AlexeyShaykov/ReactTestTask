@@ -29,3 +29,8 @@ https://react-test-job.netlify.com
 - [styled-system](https://github.com/jxnblk/styled-system/tree/ab0242c981fa1d94d29f607a42a9e9a284dd452c)
 - [yarn](https://yarnpkg.com/lang/en/)
 - [node.js >= v8.9.4](https://nodejs.org/en/)
+
+## Browser support
+Chrome (most recent 2 versions)
+Safari (most recent 2 versions)
+Opera (most recent 2 versions)
