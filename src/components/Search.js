@@ -19,7 +19,7 @@ export default class Search extends Component {
   search = null;
   value = '';
   static propTypes = {
-    handleSearchResult: PropTypes.func,
+    handleSearchResult: PropTypes.func
   };
   startSearch = debounce(() => {
     if (!this.value) {
@@ -32,7 +32,7 @@ export default class Search extends Component {
       return;
     }
     this.props.handleSearchResult(result);
-  }, 50);
+  }, 100);
 
   handleClick = e => {
     this.value = e.target.value;

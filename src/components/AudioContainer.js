@@ -14,12 +14,12 @@ class AudioContainer extends Component {
   static propTypes = {
     //from connect
     playlist: PropTypes.array,
-    loading: PropTypes.bool,
+    loading: PropTypes.bool
   };
   state = {
     activeSong: -1,
     filteredPlaylist: [],
-    tooglePlayMode: false,
+    tooglePlayMode: false
   };
 
   changeActiveSong = value => {
@@ -70,7 +70,7 @@ class AudioContainer extends Component {
       filteredPlaylist.length === 0
         ? playlist
         : filteredPlaylist.map(filterItem =>
-            playlist.find(item => item.id === filterItem.id),
+            playlist.find(item => item.id === filterItem.id)
           );
     return (
       <>
@@ -91,7 +91,9 @@ class AudioContainer extends Component {
             changeSong={this.changeActiveSong}
           />
         ) : (
-          <div>No data</div>
+          <Box mt={3} textAlign="center">
+            No data
+          </Box>
         )}
       </>
     );
@@ -101,17 +103,17 @@ class AudioContainer extends Component {
 const mapStateToProps = state => {
   return {
     loading: state.loading,
-    playlist: state.playlist,
+    playlist: state.playlist
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchData: () => dispatch(loadAudioList()),
+    fetchData: () => dispatch(loadAudioList())
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(AudioContainer);
