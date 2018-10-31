@@ -10,11 +10,11 @@ New lovely mp3 player
 # install dependencies
 yarn
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:3000
 yarn start
 
 # build for production with minification
-yarn run build
+yarn build
 ```
 
 ## :musical_note: Demo
