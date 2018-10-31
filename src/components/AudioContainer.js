@@ -16,6 +16,7 @@ class AudioContainer extends Component {
     playlist: PropTypes.array,
     loading: PropTypes.bool
   };
+
   state = {
     activeSong: -1,
     filteredPlaylist: [],
@@ -29,6 +30,7 @@ class AudioContainer extends Component {
     }
     this.setState({ activeSong: value });
   };
+
   handleNextPrevAction = control => {
     let activeSong = this.state.activeSong;
     if (!activeSong) return;
@@ -45,7 +47,7 @@ class AudioContainer extends Component {
       if (activeSong === 1) {
         newActiveSong = length;
       } else {
-        newActiveSong = ++activeSong;
+        newActiveSong = --activeSong;
       }
     }
     this.setState({ activeSong: newActiveSong });

@@ -29,62 +29,45 @@ export default class AudioPlayer extends Component {
     isSongPlaying: false,
     songProgress: 0,
     currentTime: '',
-    duration: '',
+    duration: ''
   };
-  interval = null;
+
   playerRef = React.createRef();
 
   handleSongLoaded = () => {
     if (!this.state.isSongLoading) return;
-    const duration = this.player.duration;
+    const { duration } = this.player;
     this.setState({
-      duration: this.calculateTimeValue(duration),
+      duration: this.calculateTimeValue(duration)
     });
     this.setState({ isSongLoading: false });
     this.handleControlClick('play');
   };
+
   handleControlClick = name => {
     if (name === 'play') {
       if (this.state.isSongLoading) return;
       if (!this.player.currentSrc) return;
-      this.setState({
-        isSongPlaying: true,
-      });
+      this.setState({ isSongPlaying: true });
       this.player.play();
-      this.intervalId = setInterval(() => {
-        const { currentTime, duration } = this.player;
-        const songProgress = currentTime / duration;
-        if (currentTime === duration) {
-          clearInterval(this.intervalId);
-          this.setState({
-            isSongPlaying: false,
-            currentTime: '00:00',
-            songProgress: 0,
-          });
-          return;
-        }
-        this.setState({
-          songProgress,
-          currentTime: this.calculateTimeValue(currentTime),
-        });
-      }, 1000);
     }
     if (name === 'pause') {
       this.setState({ isSongPlaying: false });
       this.player.pause();
-      clearInterval(this.intervalId);
     }
   };
+
   seek = evt => {
     if (this.state.songProgress === 0) return;
     const songProgress = evt.offsetX / evt.target.offsetWidth;
     const time = songProgress * this.player.duration;
     this.setState({
       songProgress,
-      currentTime: this.calculateTimeValue(time),
+      currentTime: this.calculateTimeValue(time)
     });
     this.player.currentTime = time;
   };
+
   calculateTimeValue = time => {
     let min = Math.floor(time / 60);
     min = min >= 10 ? min : '0' + min;
@@ -92,6 +75,25 @@ export default class AudioPlayer extends Component {
     sec = sec >= 10 ? sec : '0' + sec;
     return min + ':' + sec;
   };
+
+  handleTimeUpdate() {
+    const { currentTime, duration } = this.player;
+    if (Number.isNaN(currentTime) || Number.isNaN(duration)) return;
+    const songProgress = currentTime / duration;
+    if (currentTime === duration) {
+      this.setState({
+        isSongPlaying: false,
+        currentTime: '00:00',
+        songProgress: 0
+      });
+      return;
+    }
+    this.setState({
+      songProgress,
+      currentTime: this.calculateTimeValue(currentTime)
+    });
+  }
+
   componentDidUpdate() {
     const { src, tooglePlayMode } = this.props;
     if (!src) return;
@@ -106,32 +108,37 @@ export default class AudioPlayer extends Component {
       this.props.returnPlayMode();
       return;
     }
-    if (this.intervalId) clearInterval(this.intervalId);
     this.player.pause();
     this.player.setAttribute('src', src.trackScr);
     this.setState({
       isSongLoading: true,
       isSongPlaying: false,
       currentTime: '00:00',
-      songProgress: 0,
+      songProgress: 0
     });
   }
+
   componentDidMount() {
     this.player = this.playerRef.current;
     this.player.addEventListener('canplaythrough', this.handleSongLoaded);
+    this.player.addEventListener('timeupdate', () =>
+      this.handleTimeUpdate(this)
+    );
     this.player.volume = 0.5;
   }
+
   componentWillUnmount() {
     this.player.removeEventListener('canplaythrough', this.handleSongLoaded);
-    clearInterval(this.intervalId);
+    this.player.removeEventListener('timeupdate', this.handleTimeUpdate);
   }
+
   render() {
     const {
       isSongLoading,
       isSongPlaying,
       songProgress,
       currentTime,
-      duration,
+      duration
     } = this.state;
     const { changeSong } = this.props;
     return (

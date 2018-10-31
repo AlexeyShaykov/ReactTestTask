@@ -8,6 +8,7 @@ const PlaylistContainer = styled(Box)`
   border: 1px solid #ccc;
   border-radius: 20px;
 `;
+
 const Song = styled(Box)`
   border-bottom: 1px solid #ccc;
   cursor: pointer;
@@ -51,12 +52,12 @@ const AudioList = ({ playlist, activeSong, changeSong }) => {
 AudioList.propTypes = {
   playlist: PropTypes.array,
   activeSong: PropTypes.number,
-  toggleSong: PropTypes.func,
+  toggleSong: PropTypes.func
 };
 
 AudioList.defaultProps = {
   playlist: [],
-  activeSong: -1,
+  activeSong: -1
 };
 
 export default AudioList;

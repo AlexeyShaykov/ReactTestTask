@@ -18,9 +18,11 @@ const SearchInput = styled.input`
 export default class Search extends Component {
   search = null;
   value = '';
+
   static propTypes = {
     handleSearchResult: PropTypes.func
   };
+
   startSearch = debounce(() => {
     if (!this.value) {
       this.props.handleSearchResult([]);
@@ -49,6 +51,7 @@ export default class Search extends Component {
     this.search.addIndex('artistName');
     this.search.addDocuments(this.props.playlist);
   }
+
   render() {
     return (
       <SearchInput

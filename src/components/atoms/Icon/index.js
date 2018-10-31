@@ -8,7 +8,7 @@ const icons = {
   play: require('./icons/Play').default,
   pause: require('./icons/Pause').default,
   forward: require('./icons/Forward').default,
-  backward: require('./icons/Backward').default,
+  backward: require('./icons/Backward').default
 };
 
 const IconBox = styled(Box)`
@@ -16,6 +16,7 @@ const IconBox = styled(Box)`
   height: 25px;
   cursor: pointer;
 `;
+
 const Icon = ({ name, mx, onClick }) => {
   const Component = icons[name];
   return name ? (
@@ -26,11 +27,11 @@ const Icon = ({ name, mx, onClick }) => {
 };
 
 Icon.propTypes = {
-  name: PropTypes.string,
+  name: PropTypes.string
 };
 
 Icon.defaultProps = {
-  name: '',
+  name: ''
 };
 
 export default Icon;
