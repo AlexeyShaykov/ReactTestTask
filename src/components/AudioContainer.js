@@ -28,7 +28,6 @@ class AudioContainer extends Component {
       return;
     }
     this.setState({ activeSong: value });
-    return;
   };
   handleNextPrevAction = control => {
     let activeSong = this.state.activeSong;
@@ -51,7 +50,9 @@ class AudioContainer extends Component {
     }
     this.setState({ activeSong: newActiveSong });
   };
+
   handleSearchResult = value => this.setState({ filteredPlaylist: value });
+
   returnPlayMode = () => this.setState({ tooglePlayMode: false });
 
   componentDidMount() {
@@ -65,11 +66,17 @@ class AudioContainer extends Component {
       return <Box textAlign="center">Loading…</Box>;
     }
     const currentTrack = playlist.find(item => item.id === activeSong);
+    const _playlist =
+      filteredPlaylist.length === 0
+        ? playlist
+        : filteredPlaylist.map(filterItem =>
+            playlist.find(item => item.id === filterItem.id),
+          );
     return (
       <>
         <AudioPlayer
           src={currentTrack}
-          toggleSong={this.handleNextPrevAction}
+          changeSong={this.handleNextPrevAction}
           tooglePlayMode={tooglePlayMode}
           returnPlayMode={this.returnPlayMode}
         />
@@ -77,18 +84,15 @@ class AudioContainer extends Component {
           playlist={playlist}
           handleSearchResult={this.handleSearchResult}
         />
-        <AudioList
-          playlist={
-            filteredPlaylist.length === 0
-              ? playlist
-              : filteredPlaylist.map(
-                  filterItem =>
-                    playlist.filter(item => item.id === filterItem.id)[0],
-                )
-          }
-          activeSong={activeSong}
-          toggleSong={this.changeActiveSong}
-        />
+        {_playlist[0] ? (
+          <AudioList
+            playlist={_playlist}
+            activeSong={activeSong}
+            changeSong={this.changeActiveSong}
+          />
+        ) : (
+          <div>No data</div>
+        )}
       </>
     );
   }

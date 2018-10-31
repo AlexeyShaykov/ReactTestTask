@@ -52,8 +52,7 @@ export default class AudioPlayer extends Component {
       });
       this.player.play();
       this.intervalId = setInterval(() => {
-        const currentTime = this.player.currentTime;
-        const duration = this.player.duration;
+        const { currentTime, duration } = this.player;
         const songProgress = currentTime / duration;
         if (currentTime === duration) {
           clearInterval(this.intervalId);
@@ -134,7 +133,7 @@ export default class AudioPlayer extends Component {
       currentTime,
       duration,
     } = this.state;
-    const { toggleSong } = this.props;
+    const { changeSong } = this.props;
     return (
       <Flex alignItems="center" mb={5} flexWrap={['wrap', 'nowrap']}>
         <Flex
@@ -143,13 +142,13 @@ export default class AudioPlayer extends Component {
           justifyContent="center"
           mt={[2, 0]}
         >
-          <AudioControl icon="backward" onClick={toggleSong} />
+          <AudioControl icon="backward" onClick={changeSong} />
           <AudioControl
             icon={isSongPlaying ? 'pause' : 'play'}
             mx={2}
             onClick={this.handleControlClick}
           />
-          <AudioControl icon="forward" onClick={toggleSong} />
+          <AudioControl icon="forward" onClick={changeSong} />
         </Flex>
         <Flex width="70%" alignItems="center">
           <TimeBox duration={duration} mx={2}>

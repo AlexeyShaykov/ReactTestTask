@@ -29,11 +29,11 @@ const SongWrap = styled(Flex)`
     background-color: #ccc;
   }
 `;
-const AudioList = ({ playlist, activeSong, toggleSong }) => {
+const AudioList = ({ playlist, activeSong, changeSong }) => {
   return (
     <PlaylistContainer px={0} py={0} mt={5}>
       {playlist.map((item, index) => (
-        <Song key={index} py="2px" px={2} onClick={() => toggleSong(item.id)}>
+        <Song key={index} py="2px" px={2} onClick={() => changeSong(item.id)}>
           <SongWrap active={item.id === activeSong}>
             <Box width="50%" textAlign="left">
               {item.artistName} - {item.trackName}
@@ -51,12 +51,12 @@ const AudioList = ({ playlist, activeSong, toggleSong }) => {
 AudioList.propTypes = {
   playlist: PropTypes.array,
   activeSong: PropTypes.number,
-  toggleSong: PropTypes.func
+  toggleSong: PropTypes.func,
 };
 
 AudioList.defaultProps = {
   playlist: [],
-  activeSong: -1
+  activeSong: -1,
 };
 
 export default AudioList;

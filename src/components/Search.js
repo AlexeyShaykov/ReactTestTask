@@ -17,21 +17,30 @@ const SearchInput = styled.input`
 
 export default class Search extends Component {
   search = null;
+  value = '';
   static propTypes = {
     handleSearchResult: PropTypes.func,
   };
-  startSearch = debounce(value => {
-    const result = this.search.search(value);
-    this.props.handleSearchResult(result);
-  }, 100);
-
-  handleClick = e => {
-    const { value } = e.target;
-    if (!value) {
+  startSearch = debounce(() => {
+    if (!this.value) {
       this.props.handleSearchResult([]);
       return;
     }
-    this.startSearch(value);
+    const result = this.search.search(this.value);
+    if (result.length === 0) {
+      this.props.handleSearchResult([{ id: -1 }]);
+      return;
+    }
+    this.props.handleSearchResult(result);
+  }, 50);
+
+  handleClick = e => {
+    this.value = e.target.value;
+    if (!this.value) {
+      this.props.handleSearchResult([]);
+      return;
+    }
+    this.startSearch();
   };
 
   componentDidMount() {
