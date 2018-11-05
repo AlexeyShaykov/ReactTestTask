@@ -17,7 +17,7 @@ yarn start
 yarn build
 ```
 
-## :musical_note: Demo
+## :musical_note: Demo(if not open use vpn)
 
 https://react-test-job.netlify.com
 
